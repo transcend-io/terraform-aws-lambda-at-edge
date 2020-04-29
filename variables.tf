@@ -9,6 +9,7 @@ variable description {
 variable tags {
   type        = map(string)
   description = "Tags to apply to all resources that support them"
+  default = {}
 }
 
 variable lambda_code_source_dir {
