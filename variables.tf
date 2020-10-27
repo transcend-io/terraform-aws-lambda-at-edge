@@ -6,10 +6,14 @@ variable description {
   description = "Description of what the Lambda@Edge Function does"
 }
 
+variable s3_artifact_bucket {
+  description = "Name of the S3 bucket to upload versioned artifacts to"
+}
+
 variable tags {
   type        = map(string)
   description = "Tags to apply to all resources that support them"
-  default = {}
+  default     = {}
 }
 
 variable lambda_code_source_dir {

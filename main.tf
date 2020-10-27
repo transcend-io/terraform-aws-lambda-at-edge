@@ -35,19 +35,37 @@ data archive_file zip_file_for_lambda {
 }
 
 /**
+ * Upload the build artifact zip file to S3.
+ *
+ * Doing this makes the plans more resiliant, where it won't always
+ * appear that the function needs to be updated
+ */
+resource aws_s3_bucket_object artifact {
+  bucket                 = var.s3_artifact_bucket
+  key                    = "${var.name}.zip"
+  source                 = data.archive_file.zip_file_for_lambda.output_path
+  etag                   = filemd5(data.archive_file.zip_file_for_lambda.output_path)
+  server_side_encryption = "AES256"
+  tags                   = var.tags
+}
+
+/**
  * Create the Lambda function. Each new apply will publish a new version.
  */
 resource aws_lambda_function lambda {
   function_name = var.name
   description   = var.description
 
-  publish          = true
-  filename         = data.archive_file.zip_file_for_lambda.output_path
-  source_code_hash = data.archive_file.zip_file_for_lambda.output_base64sha256
-  handler          = var.handler
-  runtime          = var.runtime
-  role             = aws_iam_role.lambda_at_edge.arn
-  tags             = var.tags
+  # Find the file from S3
+  s3_bucket         = var.s3_artifact_bucket
+  s3_key            = aws_s3_bucket_object.artifact.id
+  s3_object_version = aws_s3_bucket_object.artifact.version_id
+
+  publish = true
+  handler = var.handler
+  runtime = var.runtime
+  role    = aws_iam_role.lambda_at_edge.arn
+  tags    = var.tags
 
   lifecycle {
     ignore_changes = [
