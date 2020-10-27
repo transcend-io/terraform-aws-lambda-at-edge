@@ -45,7 +45,6 @@ resource aws_s3_bucket_object artifact {
   key                    = "${var.name}.zip"
   source                 = data.archive_file.zip_file_for_lambda.output_path
   etag                   = filemd5(data.archive_file.zip_file_for_lambda.output_path)
-  server_side_encryption = "AES256"
   tags                   = var.tags
 }
 
