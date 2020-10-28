@@ -46,7 +46,7 @@ resource aws_s3_bucket_object artifact {
   source                 = data.archive_file.zip_file_for_lambda.output_path
   # DO NOT SUBMIT
   # etag                   = filemd5(data.archive_file.zip_file_for_lambda.output_path)
-  tags                   = var.tags
+  # tags                   = var.tags
 }
 
 /**
