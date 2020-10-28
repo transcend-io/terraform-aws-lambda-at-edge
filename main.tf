@@ -42,11 +42,13 @@ data archive_file zip_file_for_lambda {
  */
 resource aws_s3_bucket_object artifact {
   bucket                 = var.s3_artifact_bucket
-  key                    = var.name
+  # DO NOT SUBMIT: Change key?
+  # key                    = var.name
+  key = "test"
 
   # DO NOT SUBMIT: what to use for source?
-  # source                 = data.archive_file.zip_file_for_lambda.output_path
-  content_base64 = filebase64(data.archive_file.zip_file_for_lambda.output_path)
+  source                 = data.archive_file.zip_file_for_lambda.output_path
+  # content_base64 = filebase64(data.archive_file.zip_file_for_lambda.output_path)
 
   # DO NOT SUBMIT
   # etag                   = filemd5(data.archive_file.zip_file_for_lambda.output_path)
