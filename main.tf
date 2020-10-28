@@ -47,7 +47,8 @@ resource aws_s3_bucket_object artifact {
   key = "test"
 
   # DO NOT SUBMIT: what to use for source?
-  source                 = data.archive_file.zip_file_for_lambda.output_path
+  source                 = "test.txt"
+  # source                 = data.archive_file.zip_file_for_lambda.output_path
   # content_base64 = filebase64(data.archive_file.zip_file_for_lambda.output_path)
 
   # DO NOT SUBMIT
