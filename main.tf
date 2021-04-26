@@ -2,6 +2,14 @@
  * Creates a Lambda@Edge function to integrate with CloudFront distributions.
  */
 
+resource "aws_lambda_layer_version" "lambda_layer" {
+  count      = var.use_lambda_layer ? 1 : 0
+  filename   = "${var.lambda_layer_path}"
+  layer_name = var.lambda_layer_name
+
+  compatible_runtimes = var.lambda_layer_compatible_runtimes
+}
+
 /**
  * Lambdas are uploaded to via zip files, so we create a zip out of a given directory.
  * In the future, we may want to source our code from an s3 bucket instead of a local zip.
@@ -41,11 +49,11 @@ data archive_file zip_file_for_lambda {
  * appear that the function needs to be updated
  */
 resource aws_s3_bucket_object artifact {
-  bucket                 = var.s3_artifact_bucket
-  key                    = "${var.name}.zip"
-  source                 = data.archive_file.zip_file_for_lambda.output_path
-  etag                   = filemd5(data.archive_file.zip_file_for_lambda.output_path)
-  tags                   = var.tags
+  bucket = var.s3_artifact_bucket
+  key    = "${var.name}.zip"
+  source = data.archive_file.zip_file_for_lambda.output_path
+  etag   = filemd5(data.archive_file.zip_file_for_lambda.output_path)
+  tags   = var.tags
 }
 
 /**
@@ -65,6 +73,7 @@ resource aws_lambda_function lambda {
   runtime = var.runtime
   role    = aws_iam_role.lambda_at_edge.arn
   tags    = var.tags
+  layers  = var.use_lambda_layer ? [aws_lambda_layer_version.lambda_layer.arn] : null
 
   lifecycle {
     ignore_changes = [

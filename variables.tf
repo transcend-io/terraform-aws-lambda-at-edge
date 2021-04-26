@@ -20,6 +20,26 @@ variable lambda_code_source_dir {
   description = "An absolute path to the directory containing the code to upload to lambda"
 }
 
+variable "use_lambda_layer" {
+  description = "Determine wether to use lambda layer"
+  default     = false
+}
+
+variable "lambda_layer_name" {
+  description = "Name of lambda Layer"
+  default     = "lambda_layer"
+}
+
+variable lambda_layer_path {
+  description = "An absolute path to the directory containing the libraries to upload to lambda layer"
+  default     = "lambda_layer_payload.zip"
+}
+
+variable lambda_layer_compatible_runtimes {
+  description = "The compatible runtimes of the lambda layer"
+  default     = ["nodejs12.x"]
+}
+
 variable file_globs {
   type        = list(string)
   default     = ["index.js", "node_modules/**", "yarn.lock", "package.json"]
