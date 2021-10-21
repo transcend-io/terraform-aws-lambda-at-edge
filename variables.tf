@@ -26,6 +26,11 @@ variable file_globs {
   description = "list of files or globs that you want included from the lambda_code_source_dir"
 }
 
+variable local_file_dir {
+  description = "A path to the directory to store plan time generated local files"
+  default     = "."
+}
+
 variable runtime {
   description = "The runtime of the lambda function"
   default     = "nodejs10.x"
