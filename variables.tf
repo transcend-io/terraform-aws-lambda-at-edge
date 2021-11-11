@@ -33,7 +33,7 @@ variable local_file_dir {
 
 variable runtime {
   description = "The runtime of the lambda function"
-  default     = "nodejs10.x"
+  default     = "nodejs14.x"
 }
 
 variable handler {
