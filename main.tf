@@ -142,6 +142,7 @@ resource "aws_iam_role_policy" "logs_role_policy" {
 resource "aws_cloudwatch_log_group" "log_group" {
   name = "/aws/lambda/${var.name}"
   tags = var.tags
+  kms_key_id = var.cloudwatch_log_groups_kms_arn
 }
 
 /**

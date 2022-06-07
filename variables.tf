@@ -60,7 +60,7 @@ variable plaintext_params {
   const config = JSON.parse(readFileSync('./config.json'))
   const someConfigValue = config.SomeKey
   ```
-  
+
   Compared to var.ssm_params, you should use this variable when you have non-secret things that you want very quick access
   to during the execution of your lambda function.
   EOF
@@ -71,7 +71,7 @@ variable ssm_params {
   default     = {}
   description = <<EOF
   Lambda@Edge does not support env vars, so it is a common pattern to exchange Env vars for SSM params.
-  
+
   So instead of using env vars like:
   `const someEnvValue = process.env.SOME_ENV`
 
@@ -92,3 +92,10 @@ variable ssm_params {
   in your lambda .zip file. These params will need to be fetched via a Promise at runtime, so there may be small performance delays.
   EOF
 }
+
+variable cloudwatch_log_groups_kms_arn {
+  type        = string
+  description = "KMS ARN to encrypt the log group in cloudwatch"
+  default     = null
+}
+
