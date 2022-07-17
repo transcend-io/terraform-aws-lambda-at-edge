@@ -1,52 +1,52 @@
-variable name {
+variable "name" {
   description = "Name of the Lambda@Edge Function"
 }
 
-variable description {
+variable "description" {
   description = "Description of what the Lambda@Edge Function does"
 }
 
-variable s3_artifact_bucket {
+variable "s3_artifact_bucket" {
   description = "Name of the S3 bucket to upload versioned artifacts to"
 }
 
-variable tags {
+variable "tags" {
   type        = map(string)
   description = "Tags to apply to all resources that support them"
   default     = {}
 }
 
-variable lambda_code_source_dir {
+variable "lambda_code_source_dir" {
   description = "An absolute path to the directory containing the code to upload to lambda"
 }
 
-variable file_globs {
+variable "file_globs" {
   type        = list(string)
   default     = ["index.js", "node_modules/**", "yarn.lock", "package.json"]
   description = "list of files or globs that you want included from the lambda_code_source_dir"
 }
 
-variable local_file_dir {
+variable "local_file_dir" {
   description = "A path to the directory to store plan time generated local files"
   default     = "."
 }
 
-variable runtime {
+variable "runtime" {
   description = "The runtime of the lambda function"
   default     = "nodejs14.x"
 }
 
-variable handler {
+variable "handler" {
   description = "The path to the main method that should handle the incoming requests"
   default     = "index.handler"
 }
 
-variable config_file_name {
+variable "config_file_name" {
   description = "The name of the file var.plaintext_params will be written to as json"
   default     = "config.json"
 }
 
-variable plaintext_params {
+variable "plaintext_params" {
   type        = map(string)
   default     = {}
   description = <<EOF
@@ -66,7 +66,7 @@ variable plaintext_params {
   EOF
 }
 
-variable ssm_params {
+variable "ssm_params" {
   type        = map(string)
   default     = {}
   description = <<EOF
@@ -93,7 +93,7 @@ variable ssm_params {
   EOF
 }
 
-variable cloudwatch_log_groups_kms_arn {
+variable "cloudwatch_log_groups_kms_arn" {
   type        = string
   description = "KMS ARN to encrypt the log group in cloudwatch"
   default     = null
