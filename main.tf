@@ -72,6 +72,11 @@ resource "aws_lambda_function" "lambda" {
       last_modified,
     ]
   }
+
+  depends_on = [
+    aws_iam_role_policy.logs_role_policy,
+    aws_cloudwatch_log_group.log_group,
+  ]
 }
 
 /**
@@ -140,9 +145,10 @@ resource "aws_iam_role_policy" "logs_role_policy" {
  * of the CloudFront edge location handling the request.
  */
 resource "aws_cloudwatch_log_group" "log_group" {
-  name = "/aws/lambda/${var.name}"
-  tags = var.tags
-  kms_key_id = var.cloudwatch_log_groups_kms_arn
+  name              = "/aws/lambda/us-east-1.${var.name}"
+  tags              = var.tags
+  kms_key_id        = var.cloudwatch_log_groups_kms_arn
+  retention_in_days = 14
 }
 
 /**
