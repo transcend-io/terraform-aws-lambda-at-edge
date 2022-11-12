@@ -8,6 +8,7 @@ variable description {
 
 variable s3_artifact_bucket {
   description = "Name of the S3 bucket to upload versioned artifacts to"
+  default     = null
 }
 
 variable tags {
