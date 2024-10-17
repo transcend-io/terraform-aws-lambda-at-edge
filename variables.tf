@@ -99,3 +99,8 @@ variable cloudwatch_log_groups_kms_arn {
   default     = null
 }
 
+variable "timeout" {
+  description = "The amount of time your Lambda Function has to run in seconds"
+  type        = number
+  default     = 3
+}
