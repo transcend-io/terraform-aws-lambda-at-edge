@@ -1,12 +1,15 @@
 variable name {
+  type        = string
   description = "Name of the Lambda@Edge Function"
 }
 
 variable description {
+  type        = string
   description = "Description of what the Lambda@Edge Function does"
 }
 
 variable s3_artifact_bucket {
+  type        = string
   description = "Name of the S3 bucket to upload versioned artifacts to"
 }
 
@@ -17,6 +20,7 @@ variable tags {
 }
 
 variable lambda_code_source_dir {
+  type        = string
   description = "An absolute path to the directory containing the code to upload to lambda"
 }
 
@@ -27,21 +31,24 @@ variable file_globs {
 }
 
 variable local_file_dir {
+  type        = string
   description = "A path to the directory to store plan time generated local files"
   default     = "."
 }
 
 variable runtime {
+  type        = string
   description = "The runtime of the lambda function"
-  default     = "nodejs14.x"
 }
 
 variable handler {
+  type        = string
   description = "The path to the main method that should handle the incoming requests"
   default     = "index.handler"
 }
 
 variable config_file_name {
+  type        = string
   description = "The name of the file var.plaintext_params will be written to as json"
   default     = "config.json"
 }
@@ -98,4 +105,3 @@ variable cloudwatch_log_groups_kms_arn {
   description = "KMS ARN to encrypt the log group in cloudwatch"
   default     = null
 }
-
